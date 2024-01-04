@@ -11,15 +11,11 @@ function minOperations(nums: number[]): number {
         if (val === 1) minOps = -1
 
         if (minOps !== -1) {
-            if (val % 3 === 0) minOps += val/3
-            if (val % 3 === 2) minOps += Math.ceil(val/3)
-            if (val % 3 === 1) {
-                for (let j = 1; j < 4; j++) {
-                    if ((val - (2*j)) % 3 === 0) {
-                        minOps += j + ((val - (2*j))/3)
-                    }
-                }
-            }
+            if (val % 3 === 0) {
+                minOps += val/3
+            } else {
+                minOps += Math.floor(val / 3) + 1
+            } 
         }
     })
 
