@@ -1,12 +1,18 @@
 function rob(nums: number[]): number {
-    const dp = new Array(nums.length).fill(-1)
 
-    const robber = (i) => {
-        if(i >= nums.length) return 0
-        if(dp[i] !== -1) return dp[i]
-    
-        return dp[i] = Math.max(nums[i] + robber(i+2), robber(i+1))
+    const memo = new Map<number, number>()
+
+    function dp(i): number {
+        if (i === 0) return nums[0]
+        if (i === 1) return Math.max(nums[0], nums[1])
+
+        if (!memo.has(i)) {
+            memo.set(i, Math.max(dp(i-1), dp(i-2) + nums[i]))
+        }
+
+        return memo.get(i)
     }
 
-    return robber(0)
-}
+    return dp(nums.length - 1)
+    
+};
