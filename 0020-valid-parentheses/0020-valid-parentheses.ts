@@ -1,16 +1,19 @@
 function isValid(s: string): boolean {
-    const stack = []
-
-    for (let i = 0; i < s.length; i++) {
-        if (s[i] === '(' || s[i] === '{' || s[i] === '[') stack.push(s[i])
-        try {
-            if (s[i] === ')') if (stack.pop() !== '(') return false
-            if (s[i] === '}') if (stack.pop() !== '{') return false
-            if (s[i] === ']') if (stack.pop() !== '[') return false
-        } catch (ex) {
-            return false
-        }
+    const mappings: { [key: string]: string } = {
+        ")": "(",
+        "}": "{",
+        "]": "["
     }
 
+    const stack: string[] = []
+
+    for (let char of s) {
+        if (mappings[char]) {
+            const topElement = stack.length ? stack.pop() : "#"
+
+            if (topElement !== mappings[char]) return false
+        } else stack.push(char)
+    }
+    
     return stack.length === 0
 };
