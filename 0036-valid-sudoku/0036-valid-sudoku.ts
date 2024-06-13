@@ -1,10 +1,10 @@
 function isValidSudoku(board: string[][]): boolean {
     for (let i = 0; i < board.length; i++) {
+        const rowMap = {}
+        const colMap = {}
+        const blockMap = {}
+        
         for (let j = 0; j < board.length; j++) {
-            const rowMap = {}
-            const colMap = {}
-            const blockMap = {}
-
             // check row
             const row = board[i][j]
             if (row !== '.') {
@@ -19,10 +19,14 @@ function isValidSudoku(board: string[][]): boolean {
                 else colMap[col] = 1
             }
 
-            // check block
-            const block = board[i + Math.floor(j / 3)][j % 3]
+            // check block row - col
+            const block = board[(i % 3) * 3 + Math.floor(j / 3)][Math.floor(i / 3) * 3 + j % 3]
             if (block !== '.') {
-                if (blockMap[block]) return false
+                if (blockMap[block]) { 
+                    console.log(rowMap, colMap)
+                    console.log(blockMap, block)
+                    return false
+                }
                 else blockMap[block] = 1
             }
         }
