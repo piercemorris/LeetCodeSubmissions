@@ -1,13 +1,12 @@
 function twoSum(numbers: number[], target: number): number[] {
-    const map = new Map<number, number>()
+    let head = 0
+    let tail = numbers.length - 1
 
     for (let i = 0; i < numbers.length; i++) {
-        const num = numbers[i]
+        if (numbers[head] + numbers[tail] > target) tail--
 
-        if (map.has(num)) {
-            return [map.get(num) + 1, i + 1]
-        }
+        if (numbers[head] + numbers[tail] < target) head++
 
-        map.set(target - num, i)
+        if (numbers[head] + numbers[tail] === target) return [head + 1, tail + 1]
     }
 };
