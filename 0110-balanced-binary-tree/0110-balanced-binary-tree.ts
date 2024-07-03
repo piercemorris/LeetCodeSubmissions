@@ -14,6 +14,7 @@
 
 function isBalanced(root: TreeNode | null): boolean {
     let isBalanced = true
+
     if (root === null) return true
 
     function walk(node: TreeNode, depth: number): number {
@@ -29,5 +30,5 @@ function isBalanced(root: TreeNode | null): boolean {
 
     walk(root, 0)
 
-    return true && isBalanced
+    return isBalanced
 };
